@@ -9,7 +9,6 @@ import { DeviceService } from './device.service';
 })
 export class DeviceComponent implements OnInit {
   devices: Device[];
-  deviceForm = false;
   editMode = false;
 
   constructor(private deviceService: DeviceService) {}
@@ -21,8 +20,8 @@ export class DeviceComponent implements OnInit {
   }
 
   ngDoCheck(): void {
-    this.deviceService.deviceForm.subscribe((res: boolean) => {
-      this.deviceForm = res;
+    this.deviceService.editMode.subscribe((res: boolean) => {
+      this.editMode = res;
     });
   }
 

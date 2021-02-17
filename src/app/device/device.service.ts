@@ -11,7 +11,7 @@ import { Device } from '../entities/device';
 export class DeviceService {
   baseUrl = environment.baseUrl;
   @Output() selectedDevice = new EventEmitter();
-  @Output() deviceForm = new EventEmitter<boolean>();
+  @Output() editMode = new EventEmitter<boolean>();
   devices: Device[] = [];
 
   constructor(private http: HttpClient) {
@@ -26,33 +26,41 @@ export class DeviceService {
         this.devices.push(
           new Device(res['name'], device.serialNumber, device.description, device.type),
         );
-        this.deviceForm.emit(false);
+        this.editMode.emit(false);
       });
   }
 
   getDevices(): Observable<Device[]> {
     this.devices = [];
-    return this.http
-      .get(`${this.baseUrl}/Devices.json`)
-      .pipe(map((res) => {
+    return this.http.get(`${this.baseUrl}/Devices.json`).pipe(
+      map((res) => {
         for (let key in res) {
           this.devices.push(
-            new Device(key, res[key].serialNumber, res[key].description, res[key].type),
+            new Device(
+              key,
+              res[key].serialNumber,
+              res[key].description,
+              res[key].type,
+              res[key].employeeId,
+            ),
           );
         }
         return this.devices;
-      }));
+      }),
+    );
   }
 
   updateDevice(device: Device) {
     this.http.put(`${this.baseUrl}/Devices/${device.id}.json`, device).subscribe((res: any) => {
       for (let i = 0; i < this.devices.length; i++) {
-        if (this.devices[i].id === res.devices.id) {
-          this.devices[i].serialNumber = res.devices.serialNumber;
-          this.devices[i].description = res.devices.description;
-          this.devices[i].type = res.devices.type;
+        console.log(res);
+        if (this.devices[i].id === res.id) {
+          this.devices[i].serialNumber = res.serialNumber;
+          this.devices[i].description = res.description;
+          this.devices[i].type = res.type;
         }
       }
+      this.editMode.emit(false);
     });
   }
 

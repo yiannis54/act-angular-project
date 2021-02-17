@@ -25,6 +25,7 @@ export class DeviceFormComponent implements OnInit {
     serialNumber: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     type: new FormControl('', [Validators.required]),
+    employeeId: new FormControl({ value: null }),
   });
 
   submitDeviceForm(form) {
@@ -34,22 +35,26 @@ export class DeviceFormComponent implements OnInit {
     } else {
       this.deviceService.createDevice(this.deviceForm.value);
     }
-    this.deviceForm.reset();
+    // this.deviceForm.reset();
   }
 
   cancel() {
-    this.deviceForm.reset();
+    // this.deviceForm.reset();
     // this.deviceForm.type.setValue("");
-    this.deviceService.deviceForm.emit(false);
+    this.deviceService.editMode.emit(false);
   }
 
   deviceEdit(device: Device) {
+    if (!device.employeeId) {
+      device.employeeId = null;
+    }
     this.deviceForm.controls.id.enable();
     this.deviceForm.setValue({
       id: device.id,
       serialNumber: device.serialNumber,
       description: device.description,
       type: device.type,
+      employeeId: device.employeeId,
     });
   }
 }
