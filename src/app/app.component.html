@@ -1,0 +1,13 @@
+<nav class="nav navbar-expand bg-light navbar-light">
+  <a class="navbar-brand h1 text-uppercase" href="/">{{ title }}</a>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a href="" class="nav-link" [routerLink]="['employees']"> Employees</a>
+    </li>
+    <li class="nav-item">
+      <a href="" class="nav-link" [routerLink]="['devices']"> Devices</a>
+    </li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>

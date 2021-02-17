@@ -1,0 +1,61 @@
+<div class="details" *ngIf="showDetails">
+  <div *ngIf="showForm; then showEditForm; else hideEditForm"></div>
+  <ng-template #showEditForm>
+    <app-employee-form [employee]="employee"></app-employee-form>
+  </ng-template>
+  <ng-template #hideEditForm>
+    <h2>Employee Details</h2>
+    <div (click)="showDetails = !showDetails" class="details-button-close">
+      <span class="material-icons font-3">clear</span>
+    </div>
+    <img *ngIf="employee.image" class="img-thumbnail mx-auto d-block" src="{{ employee?.image }}" />
+    <a (click)="showForm = !showForm" class="details-button-edit"
+      ><span class="material-icons font-small"> edit </span></a
+    >
+    <h3>{{ employee?.name }}</h3>
+    {{ employee?.email }}
+  </ng-template>
+
+  <div class="container hover">
+    <li class="row bg-light p-3">
+      <!-- <div class="col">ID</div> -->
+      <div class="col">Type</div>
+      <div class="col">Serial</div>
+      <div class="col-5">Description</div>
+      <div class="col-2"></div>
+    </li>
+    <li *ngFor="let device of employeeDevices" class="row p-2">
+      <!-- <div class="col">{{ device.id }}</div> -->
+      <div class="col">{{ device.type }}</div>
+      <div class="col">{{ device.serialNumber }}</div>
+      <div class="col-5">{{ device.description }}</div>
+      <div class="col-2" (click)="deleteEmployeeDevice(device.id)">
+        <div class="btn btn-danger btn-xs">Remove</div>
+      </div>
+    </li>
+  </div>
+
+  <hr />
+  <h5>Available Devices</h5>
+  <div *ngIf="availableDevices.length > 0; else noAvailableDevices">
+    <div class="container hover">
+      <li class="row bg-light p-3">
+        <!-- <div class="col">ID</div> -->
+        <div class="col">Type</div>
+        <div class="col">Serial</div>
+        <div class="col-5">Description</div>
+        <div class="col-2"></div>
+      </li>
+      <li *ngFor="let availableDevice of availableDevices" class="row">
+        <!-- <div class="col">{{ availableDevice.id }}</div> -->
+        <div class="col">{{ availableDevice.type }}</div>
+        <div class="col">{{ availableDevice.serialNumber }}</div>
+        <div class="col-5">{{ availableDevice.description }}</div>
+        <div class="col-2" (click)="addEmployeeDevice(availableDevice.id, employee.id)">
+          <div class="btn btn-success btn-xs">Add</div>
+        </div>
+      </li>
+    </div>
+  </div>
+  <ng-template #noAvailableDevices><p>There are no available devices left.</p></ng-template>
+</div>

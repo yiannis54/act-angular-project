@@ -1,0 +1,33 @@
+<div class="wrapper" style="width: 90%; margin: 0 5%">
+  <h1>Device List</h1>
+
+  <div class="table hover">
+    <div class="card-header w-100">
+      <li class="row">
+        <!-- <div class="col">Id</div> -->
+        <div class="col-3">Serial Number</div>
+        <div class="col">Description</div>
+        <div class="col-2">Type</div>
+        <div class="col-2"></div>
+      </li>
+    </div>
+    <div *ngFor="let device of devices; let idx" class="w-100 card-body">
+      <li class="row" *ngIf="!editMode">
+        <!-- <div class="col">{{ device.id }}</div> -->
+        <div class="col-3">{{ device.serialNumber }}</div>
+        <div class="col">{{ device.description }}</div>
+        <div class="col-2">{{ device.type }}</div>
+        <div class="col-2">
+          <a class="text-info" (click)="editDevice(device)">Edit</a> |
+          <a (click)="deleteDevice(device.id)" class="text-danger">Delete</a>
+        </div>
+      </li>
+      <app-device-form [buttonText]="'Update'" [device]="device"></app-device-form>
+    </div>
+  </div>
+
+  <app-device-form [buttonText]="'Add Device'"></app-device-form>
+
+
+
+</div>

@@ -1,0 +1,35 @@
+<div class="wrapper" style="width: 90%; margin: 0 5%">
+  <h1>Employees List</h1>
+
+  <button [hidden]="showForm" class="btn btn-primary mb-4" (click)="showForm = !showForm">
+    New Employee
+  </button>
+
+  <div class="mb-4" *ngIf="showForm">
+    <app-employee-form [employee]=NULL></app-employee-form>
+  </div>
+
+  <div class="table hover">
+    <div class="card-header w-100">
+      <li class="row">
+        <!-- <div class="col">Id</div> -->
+        <div class="col">Name</div>
+        <div class="col">Email</div>
+        <div class="col-2"></div>
+      </li>
+    </div>
+    <div *ngFor="let employee of employees" class="w-100 card-body">
+      <li class="row">
+        <!-- <div class="col">{{ employee.id }}</div> -->
+        <div class="col">{{ employee.name }}</div>
+        <div class="col">{{ employee.email }}</div>
+        <div class="col-2">
+          <a class="text-info" (click)="viewEmployeeDetails(employee)">Details</a> |
+          <a (click)="deleteEmployee(employee.id)" class="text-danger">Delete</a>
+        </div>
+      </li>
+    </div>
+  </div>
+  <hr />
+  <app-employee-detail></app-employee-detail>
+</div>
