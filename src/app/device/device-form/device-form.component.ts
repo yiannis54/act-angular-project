@@ -22,8 +22,8 @@ export class DeviceFormComponent implements OnInit {
 
   deviceForm = new FormGroup({
     id: new FormControl({ value: null, disabled: true }),
-    serialNumber: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    serialNumber: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
     type: new FormControl('', [Validators.required]),
     employeeId: new FormControl({ value: null }),
   });
