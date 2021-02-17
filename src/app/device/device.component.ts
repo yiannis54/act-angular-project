@@ -10,6 +10,7 @@ import { DeviceService } from './device.service';
 export class DeviceComponent implements OnInit {
   devices: Device[];
   editMode = false;
+  deviceIndexToEdit:number;
 
   constructor(private deviceService: DeviceService) {}
 
@@ -35,8 +36,8 @@ export class DeviceComponent implements OnInit {
     });
   }
 
-  editDevice(device: Device) {
+  editDevice(index: number) {
+    this.deviceIndexToEdit = index;
     this.editMode = !this.editMode;
-    // this.deviceService.selectedDevice.emit(device);
   }
 }

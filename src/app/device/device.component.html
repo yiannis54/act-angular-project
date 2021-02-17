@@ -11,22 +11,22 @@
         <div class="col-2"></div>
       </li>
     </div>
-    <div *ngFor="let device of devices; let idx" class="w-100 card-body">
-      <div *ngIf="!editMode">
+    <div *ngFor="let device of devices; let idx = index" class="w-100 card-body">
+      <div *ngIf="editMode && idx == deviceIndexToEdit; else showDetailsBlock" class="m-0 p-0">
+        <app-device-form [buttonText]="'Update'" [device]="device"></app-device-form>
+      </div>
+      <ng-template #showDetailsBlock>
         <li class="row">
           <!-- <div class="col">{{ device.id }}</div> -->
           <div class="col-3">{{ device.serialNumber }}</div>
           <div class="col">{{ device.description }}</div>
           <div class="col-2">{{ device.type }}</div>
           <div class="col-2">
-            <a class="text-info" (click)="editDevice(device)">Edit</a> |
+            <a class="text-info" (click)="editDevice(idx)">Edit</a> |
             <a (click)="deleteDevice(device.id)" class="text-danger">Delete</a>
           </div>
         </li>
-      </div>
-      <div *ngIf="editMode" class="m-0 p-0">
-        <app-device-form [buttonText]="'Update'" [device]="device"></app-device-form>
-      </div>
+      </ng-template>
     </div>
   </div>
 

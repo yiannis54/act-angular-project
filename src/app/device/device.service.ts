@@ -53,7 +53,7 @@ export class DeviceService {
   updateDevice(device: Device) {
     this.http.put(`${this.baseUrl}/Devices/${device.id}.json`, device).subscribe((res: any) => {
       for (let i = 0; i < this.devices.length; i++) {
-        console.log(res);
+        // console.log(res);
         if (this.devices[i].id === res.id) {
           this.devices[i].serialNumber = res.serialNumber;
           this.devices[i].description = res.description;
