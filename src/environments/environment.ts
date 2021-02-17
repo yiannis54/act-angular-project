@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://act-angular-default-rtdb.firebaseio.com'
+  baseUrl: 'INPUT_HERE_FIREBASE_REALTIME_DATABASE'
 };
 
 /*
